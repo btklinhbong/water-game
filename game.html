@@ -2,23 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Water Challenge: Time Budget</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+    <img class="brand-logo" src="logo/charity-water-logo-9121D887A9-seeklogo.com.png" alt="charity: water logo">
     <h1>Water Challenge: Time Budget</h1>
+    <p class="subtitle">Make daily choices and see how water access impacts wellbeing, learning, and health.</p>
     <div id="bars-area">
-      Fun: <div class="bar-bg"><div class="bar" id="bar-fun"></div></div><br>
-      Intelligence: <div class="bar-bg"><div class="bar" id="bar-int"></div></div><br>
-      Health: <div class="bar-bg"><div class="bar" id="bar-health"></div></div><br>
-      Dehydrate: <div class="bar-bg"><div class="bar" id="bar-dehydrate"></div></div>
+      <div class="hud-item">
+        <span class="hud-icon" aria-hidden="true">F</span>
+        <span class="hud-label">Fun</span>
+        <div class="bar-bg"><div class="bar" id="bar-fun"></div></div>
+        <span class="hud-value" id="val-fun">50%</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-icon" aria-hidden="true">IQ</span>
+        <span class="hud-label">Intelligence</span>
+        <div class="bar-bg"><div class="bar" id="bar-int"></div></div>
+        <span class="hud-value" id="val-int">35%</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-icon" aria-hidden="true">H</span>
+        <span class="hud-label">Health</span>
+        <div class="bar-bg"><div class="bar" id="bar-health"></div></div>
+        <span class="hud-value" id="val-health">50%</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-icon" aria-hidden="true">D</span>
+        <span class="hud-label">Dehydrate</span>
+        <div class="bar-bg"><div class="bar" id="bar-dehydrate"></div></div>
+        <span class="hud-value" id="val-dehydrate">15%</span>
+      </div>
     </div>
     <div id="fact-area"></div>
-    <div id="card-area"></div>
-    <div id="buttons-area">
-      <button id="left-btn">⬅️ Left</button>
-      <button id="right-btn">➡️ Right</button>
+    <div class="play-stage">
+      <button id="left-btn" class="nav-btn" aria-label="Choose left option">◀</button>
+      <div id="card-area"></div>
+      <button id="right-btn" class="nav-btn" aria-label="Choose right option">▶</button>
     </div>
     <div id="result-area" style="display:none;"></div>
   </div>

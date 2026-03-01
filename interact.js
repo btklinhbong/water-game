@@ -62,6 +62,10 @@ const barFun = document.getElementById('bar-fun');
 const barInt = document.getElementById('bar-int');
 const barHealth = document.getElementById('bar-health');
 const barDehydrate = document.getElementById('bar-dehydrate');
+const valFun = document.getElementById('val-fun');
+const valInt = document.getElementById('val-int');
+const valHealth = document.getElementById('val-health');
+const valDehydrate = document.getElementById('val-dehydrate');
 const cardArea = document.getElementById('card-area');
 const leftBtn = document.getElementById('left-btn');
 const rightBtn = document.getElementById('right-btn');
@@ -78,6 +82,10 @@ function updateBars() {
   barInt.style.width = metrics.intelligence + "%";
   barHealth.style.width = metrics.health + "%";
   barDehydrate.style.width = metrics.dehydrate + "%";
+  valFun.textContent = metrics.fun + "%";
+  valInt.textContent = metrics.intelligence + "%";
+  valHealth.textContent = metrics.health + "%";
+  valDehydrate.textContent = metrics.dehydrate + "%";
 }
 
 function clampBars() {
@@ -104,11 +112,12 @@ function renderCard() {
   const card = cards[cardIndex];
   cardArea.innerHTML = `
     <div class="card">
-      <h2>${card.text}</h2>
-      <div style="margin:14px 0;">
-        <span style="color:#888;">Left: ${card.left.choice}</span><br>
-        <span style="color:#888;">Right: ${card.right.choice}</span>
-      </div>
+      <div class="story-art" aria-hidden="true"><span class="story-art-badge">Scenario</span></div>
+      <p class="story-text">${card.text}</p>
+      <ul class="choice-list">
+        <li><strong>Left:</strong> ${card.left.choice}</li>
+        <li><strong>Right:</strong> ${card.right.choice}</li>
+      </ul>
     </div>
   `;
 }
@@ -150,18 +159,17 @@ function showBadEnding(bar) {
     msg = "Severe dehydration can cause serious illness and death. Clean water saves lives.";
   }
   resultArea.innerHTML = `
-    <h2>Game Over</h2>
-    <p>${msg}</p>
-    <hr>
-    <ul>
-      ${Object.values(facts).map(f => `<li>${f}</li>`).join('')}
-      ${statsList.map(f => `<li>${f}</li>`).join('')}
-    </ul>
-    <p>
-      Imagine spending hours every day fetching water, instead of enjoying college life.<br>
-      <a href="https://charitywater.org" target="_blank">Learn More</a>
-    </p>
-    <button onclick="location.reload()">Try Again</button>
+    <div class="result-panel">
+      <h2>Game Over</h2>
+      <div class="result-content">
+        <p>${msg}</p>
+        <p>
+          Imagine spending hours every day fetching water, instead of enjoying college life.<br>
+          <a href="https://charitywater.org" target="_blank">Learn More</a>
+        </p>
+      </div>
+      <button class="result-btn" onclick="location.reload()">Try Again</button>
+    </div>
   `;
 }
 
@@ -174,28 +182,28 @@ function showEnding() {
   const endingFact = getRandomFact();
 
   resultArea.innerHTML = `
-    <h2>Your Day</h2>
-    <div>
-      Fun: <strong>${metrics.fun}/100</strong><br>
-      Intelligence: <strong>${metrics.intelligence}/100</strong><br>
-      Health: <strong>${metrics.health}/100</strong><br>
-      Dehydrate: <strong>${metrics.dehydrate}/100</strong>
+    <div class="result-panel">
+      <h2>Your Day</h2>
+      <div class="result-content">
+        <p>
+          Fun: <strong>${metrics.fun}/100</strong><br>
+          Intelligence: <strong>${metrics.intelligence}/100</strong><br>
+          Health: <strong>${metrics.health}/100</strong><br>
+          Dehydrate: <strong>${metrics.dehydrate}/100</strong>
+        </p>
+        <h3>Time spent fetching water:</h3>
+        <div style="margin:10px 0">
+          You: <span style="display:inline-block;border-radius:4px;width:${waterFetchHours*30}px;height:12px;background:#009bd1"></span> ${waterFetchHours} hours<br>
+          Avg college student: <span style="display:inline-block;border-radius:4px;width:3px;height:12px;background:#77a8bb"></span> 0.1 hours<br>
+          Child in Ethiopia: <span style="display:inline-block;border-radius:4px;width:90px;height:12px;background:#d12229"></span> 3 hours
+        </div>
+        <p>
+          You spent <b>${waterFetchHours}</b> hours fetching water today. In reality, millions of students do this every day, limiting their time for school and fun.
+        </p>
+        <p><b>Ending Fact:</b> ${endingFact}</p>
+      </div>
+      <button class="result-btn" onclick="location.reload()">Play Again</button>
     </div>
-    <hr>
-    <h3>Time spent fetching water:</h3>
-    <div style="margin:10px 0">
-      You: <span style="display:inline-block;border-radius:4px;width:${waterFetchHours*30}px;height:12px;background:#38B6FF"></span> ${waterFetchHours} hours<br>
-      Avg college student: <span style="display:inline-block;border-radius:4px;width:3px;height:12px;background:#4caf50"></span> 0.1 hours<br>
-      Child in Ethiopia: <span style="display:inline-block;border-radius:4px;width:90px;height:12px;background:#f44336"></span> 3 hours
-    </div>
-    <p>
-      You spent <b>${waterFetchHours}</b> hours fetching water today. In reality, millions of students do this every day, limiting their time for school and fun.
-    </p>
-    <p><b>Ending Fact:</b> ${endingFact}</p>
-    <ul>
-      ${statsList.map(f => `<li>${f}</li>`).join('')}
-    </ul>
-    <button onclick="location.reload()">Play Again</button>
   `;
 }
 
