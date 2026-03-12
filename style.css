@@ -117,7 +117,7 @@ body {
   height: 100%;
   border-radius: 5px;
   width: 75%;          /* overwritten by JS on every stat change */
-  transition: width 0.45s ease-out;
+  transition: width 0.5s ease-out;
 }
 
 /* Each stat gets its own colour for quick at-a-glance reading */
@@ -247,6 +247,49 @@ body {
 */
 .option-button:hover {
   background-color: #1d4ed8;
+}
+
+/*
+  =============================================================
+  FADE-OUT EFFECT
+  =============================================================
+  
+  When the game ends, a full-screen overlay gradually fades in.
+  This creates a dramatic darkening effect while JavaScript shows the end screen.
+*/
+.fade-overlay {
+  position: fixed;
+  inset: 0;  /* covers entire viewport */
+  background-color: rgba(15, 23, 42, 0.9);  /* dark semi-transparent color */
+  opacity: 0;  /* starts completely transparent */
+  pointer-events: none;  /* blocks mouse clicks while transparent */
+  z-index: 999;  /* layer below the modal content */
+  
+  /*
+    CSS TRANSITION EXPLAINED:
+    -----
+    transition: opacity 2s ease-out;
+    
+    This tells the browser: "When opacity changes, animate it smoothly
+    over 2 seconds using an ease-out timing function."
+    
+    - "opacity" = only animate this property
+    - "2s" = take exactly 2 seconds
+    - "ease-out" = start fast, slow down at the end (dramatic effect)
+    
+    When JavaScript changes opacity from 0 to 1, the browser doesn't
+    instantly jump to 1. Instead, it interpolates every single frame
+    between 0 and 1 over the 2-second duration.
+  */
+  transition: opacity 2s ease-out;
+}
+
+/*
+  When JavaScript adds the "active" class, opacity becomes 1.
+  The CSS transition above handles the smooth animation.
+*/
+.fade-overlay.active {
+  opacity: 1;
 }
 
 .end-game-modal {

@@ -25,6 +25,7 @@ const scenarioTitleElement = document.querySelector(".scenario-title");
 const scenarioTextElement = document.querySelector(".scenario-text");
 const optionAButton = document.getElementById("option-a-button");
 const optionBButton = document.getElementById("option-b-button");
+const fadeOverlay = document.getElementById("fade-overlay");
 const endGameModal = document.getElementById("end-game-modal");
 const endGameTitle = document.getElementById("end-game-title");
 const endGameDescription = document.getElementById("end-game-description");
@@ -161,11 +162,45 @@ function handleChoice(optionKey) {
 }
 
 function showEndGameModal(title, description) {
-  endGameTitle.textContent = title;
-  endGameDescription.textContent = description;
-  endGameModal.style.display = "flex";
+  /*
+    STEP 1: Disable buttons immediately so user can't make more choices
+  */
   optionAButton.disabled = true;
   optionBButton.disabled = true;
+
+  /*
+    STEP 2: Trigger the fade-in animation by adding the "active" class.
+    This changes fade-overlay.opacity from 0 to 1 over 2 seconds
+    (see the CSS transition rule).
+  */
+  fadeOverlay.classList.add("active");
+
+  /*
+    STEP 3: Use setTimeout to wait exactly 2 seconds before showing the modal.
+    This synchronizes with the CSS transition duration.
+    
+    setTimeout EXPLAINED:
+    -----
+    setTimeout(function, milliseconds)
+    
+    - Schedules a function to run AFTER a delay
+    - The delay is in milliseconds (so 2000 = 2 seconds)
+    - The code OUTSIDE setTimeout runs immediately
+    - The code INSIDE setTimeout runs after the delay
+    
+    This is how we sequence events in JavaScript:
+    1) Start fade (immediately)
+    2) Wait 2 seconds (setTimeout)
+    3) Show end screen (after 2 seconds)
+    
+    Without setTimeout, all three would happen instantly!
+  */
+  setTimeout(function () {
+    // Now the overlay is fully faded in, so show the modal content
+    endGameTitle.textContent = title;
+    endGameDescription.textContent = description;
+    endGameModal.style.display = "flex";
+  }, 2000);  // 2000 milliseconds = 2 seconds
 }
 
 function checkGameEnd() {
