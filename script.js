@@ -6,6 +6,7 @@ let hydration = 75;
 let sanity = 75;
 let gpa = 75;
 let currentTurn = 0;
+let endGameTimerId = null;
 
 // -------------------------------------------------------------
 // 2) Scenario data (loaded from JSON file)
@@ -30,6 +31,7 @@ const endGameModal = document.getElementById("end-game-modal");
 const endGameTitle = document.getElementById("end-game-title");
 const endGameDescription = document.getElementById("end-game-description");
 const playAgainButton = document.getElementById("play-again-button");
+const resetGameButton = document.getElementById("reset-game-button");
 
 // -------------------------------------------------------------
 // 4) Rendering helpers
@@ -56,6 +58,10 @@ function renderStats() {
   updateBarDangerMode(hydrationBar, hydration);
   updateBarDangerMode(sanityBar, sanity);
   updateBarDangerMode(gpaBar, gpa);
+}
+
+function updateUI() {
+  renderStats();
 }
 
 function applyScenarioEffects(effects) {
@@ -91,6 +97,10 @@ function renderCurrentScenario() {
   scenarioTextElement.textContent = scenario.description;
   optionAButton.textContent = scenario.optionA.text;
   optionBButton.textContent = scenario.optionB.text;
+}
+
+function loadScenario() {
+  renderCurrentScenario();
 }
 
 function saveGameState() {
@@ -134,8 +144,30 @@ function initializeGame() {
     saveGameState();
   }
 
-  renderStats();
-  renderCurrentScenario();
+  updateUI();
+  loadScenario();
+}
+
+function resetGame() {
+  health = 75;
+  hydration = 75;
+  sanity = 75;
+  gpa = 75;
+  currentTurn = 0;
+
+  if (endGameTimerId !== null) {
+    clearTimeout(endGameTimerId);
+    endGameTimerId = null;
+  }
+
+  fadeOverlay.classList.remove("active");
+  endGameModal.style.display = "none";
+  optionAButton.disabled = false;
+  optionBButton.disabled = false;
+
+  updateUI();
+  loadScenario();
+  saveGameState();
 }
 
 function handleChoice(optionKey) {
@@ -195,11 +227,16 @@ function showEndGameModal(title, description) {
     
     Without setTimeout, all three would happen instantly!
   */
-  setTimeout(function () {
+  if (endGameTimerId !== null) {
+    clearTimeout(endGameTimerId);
+  }
+
+  endGameTimerId = setTimeout(function () {
     // Now the overlay is fully faded in, so show the modal content
     endGameTitle.textContent = title;
     endGameDescription.textContent = description;
     endGameModal.style.display = "flex";
+    endGameTimerId = null;
   }, 2000);  // 2000 milliseconds = 2 seconds
 }
 
@@ -259,9 +296,14 @@ optionBButton.addEventListener("click", function () {
 });
 
 playAgainButton.addEventListener("click", function () {
-  localStorage.removeItem(SAVE_KEY);
-  location.reload();
+  resetGame();
 });
+
+if (resetGameButton) {
+  resetGameButton.addEventListener("click", function () {
+    resetGame();
+  });
+}
 
 // ============================================================
 // 7) Load scenarios from JSON file

@@ -60,6 +60,7 @@ body {
   background-color: #0f172a;
   color: #ffffff;
   border-bottom: 3px solid #1e293b;
+  flex-wrap: wrap;
 }
 
 /*
@@ -72,6 +73,11 @@ body {
   gap: 5px;
   flex: 1;
   min-width: 80px;
+}
+
+.stats-actions {
+  display: flex;
+  align-items: flex-end;
 }
 
 /* Small text label above each bar */
@@ -247,6 +253,31 @@ body {
 */
 .option-button:hover {
   background-color: #1d4ed8;
+}
+
+.reset-button {
+  border: 1px solid #b91c1c;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #dc2626;
+  color: #ffffff;
+  min-width: 110px;
+}
+
+.reset-button:hover {
+  background-color: #b91c1c;
+}
+
+.reset-button:active {
+  background-color: #991b1b;
+}
+
+.reset-button:focus-visible {
+  outline: 3px solid rgba(248, 113, 113, 0.45);
+  outline-offset: 2px;
 }
 
 /*
