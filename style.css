@@ -50,28 +50,81 @@ body {
   display: flex;
 
   /*
-    "justify-content: space-around" spreads items across the row.
+    "gap" adds equal spacing between each stat-item without needing margins.
   */
-  justify-content: space-around;
+  gap: 16px;
 
-  /*
-    "align-items: center" vertically centers items inside this bar.
-  */
-  align-items: center;
+  align-items: flex-start;
 
-  padding: 16px 12px;
+  padding: 16px 24px;
   background-color: #0f172a;
   color: #ffffff;
   border-bottom: 3px solid #1e293b;
 }
 
 /*
-  Each individual stat label (Health, Hydration, etc.).
+  Each stat block: label text stacked above the bar track.
+  flex: 1 makes all four blocks share the bar width equally.
 */
 .stat-item {
-  font-weight: 700;
-  letter-spacing: 0.3px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 80px;
 }
+
+/* Small text label above each bar */
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+/*
+  The outer container of the bar — always full width, dark background.
+  overflow: hidden clips the inner fill so it never bleeds past the corners.
+*/
+.stat-bar-track {
+  width: 100%;
+  height: 10px;
+  background-color: #1e293b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/*
+  The inner filled portion.
+
+  CSS TRANSITIONS EXPLAINED
+  --------------------------
+  When JavaScript changes style.width on this element the browser does NOT
+  jump straight to the new value.  Instead, the transition rule says:
+    "animate the 'width' property over 0.45 seconds using an ease-out curve".
+
+  Sequence:
+  1. JS sets element.style.width = "60%";
+  2. The browser detects that 'width' changed.
+  3. Because a matching transition is declared, it interpolates every
+     rendered frame between the old and new width for 0.45 s.
+  4. Result: a smooth slide, not a snap.
+
+  ease-out starts fast and decelerates — this feels natural for stat bars.
+*/
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  width: 75%;          /* overwritten by JS on every stat change */
+  transition: width 0.45s ease-out;
+}
+
+/* Each stat gets its own colour for quick at-a-glance reading */
+.health-bar    { background-color: #ef4444; }   /* red   */
+.hydration-bar { background-color: #38bdf8; }   /* sky   */
+.sanity-bar    { background-color: #a78bfa; }   /* violet */
+.gpa-bar       { background-color: #facc15; }   /* amber */
 
 /*
   =============================================================

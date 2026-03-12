@@ -5,60 +5,21 @@ let health = 75;
 let hydration = 75;
 let sanity = 75;
 let gpa = 75;
-let currentScenarioIndex = 0;
+let currentTurn = 0;
 
 // -------------------------------------------------------------
-// 2) Scenario data (array of JS objects)
+// 2) Scenario data (loaded from JSON file)
 // -------------------------------------------------------------
-const scenarios = [
-  {
-    title: "1. A Difficult Choice",
-    description:
-      "You have one bottle of clean water left and exams tomorrow. Do you save the water for later, or drink now to think clearly?",
-    optionA: {
-      text: "Drink now",
-      effects: { health: 0, hydration: 10, sanity: 5, gpa: 2 },
-    },
-    optionB: {
-      text: "Save for later",
-      effects: { health: -2, hydration: -8, sanity: -3, gpa: 3 },
-    },
-  },
-  {
-    title: "2. Gym vs Group Study",
-    description:
-      "You can either attend a quick workout session or stay for one more hour of group revision.",
-    optionA: {
-      text: "Go to gym",
-      effects: { health: 8, hydration: -6, sanity: 4, gpa: -2 },
-    },
-    optionB: {
-      text: "Stay and study",
-      effects: { health: -3, hydration: -4, sanity: -2, gpa: 6 },
-    },
-  },
-  {
-    title: "3. Late-Night Cram",
-    description:
-      "A friend offers energy drinks for an all-night study session before finals.",
-    optionA: {
-      text: "Join cram session",
-      effects: { health: -6, hydration: -10, sanity: -5, gpa: 8 },
-    },
-    optionB: {
-      text: "Sleep early",
-      effects: { health: 6, hydration: 3, sanity: 7, gpa: -3 },
-    },
-  },
-];
+let scenarios = [];  // Will be populated by fetch()
+const SAVE_KEY = "waterGameSave";
 
 // -------------------------------------------------------------
 // 3) Grab elements from the DOM (the HTML tree in memory)
 // -------------------------------------------------------------
-const healthStatLabel = document.getElementById("health-stat");
-const hydrationStatLabel = document.getElementById("hydration-stat");
-const sanityStatLabel = document.getElementById("sanity-stat");
-const gpaStatLabel = document.getElementById("gpa-stat");
+const healthBar = document.getElementById("health-bar");
+const hydrationBar = document.getElementById("hydration-bar");
+const sanityBar = document.getElementById("sanity-bar");
+const gpaBar = document.getElementById("gpa-bar");
 
 const scenarioTitleElement = document.querySelector(".scenario-title");
 const scenarioTextElement = document.querySelector(".scenario-text");
@@ -70,13 +31,13 @@ const optionBButton = document.getElementById("option-b-button");
 // -------------------------------------------------------------
 function clampStat(value) {
   return Math.max(0, Math.min(100, value));
-}
+}// đặt ra giới hạn
 
 function renderStats() {
-  healthStatLabel.textContent = `Health: ${health}`;
-  hydrationStatLabel.textContent = `Hydration: ${hydration}`;
-  sanityStatLabel.textContent = `Sanity: ${sanity}`;
-  gpaStatLabel.textContent = `GPA: ${gpa}`;
+  healthBar.style.width = `${health}%`;
+  hydrationBar.style.width = `${hydration}%`;
+  sanityBar.style.width = `${sanity}%`;
+  gpaBar.style.width = `${gpa}%`;
 }
 
 function applyScenarioEffects(effects) {
@@ -87,42 +48,109 @@ function applyScenarioEffects(effects) {
 }
 
 // -------------------------------------------------------------
-// 5) Scenario progression
+// 5) Scenario progression + save/load helpers
 // -------------------------------------------------------------
-function loadNextScenario() {
-  const scenario = scenarios[currentScenarioIndex];
+function renderCurrentScenario() {
+  if (!scenarios.length) return;
+
+  const scenarioIndex = currentTurn % scenarios.length;
+  const scenario = scenarios[scenarioIndex];
 
   scenarioTitleElement.textContent = scenario.title;
   scenarioTextElement.textContent = scenario.description;
   optionAButton.textContent = scenario.optionA.text;
   optionBButton.textContent = scenario.optionB.text;
+}
 
-  currentScenarioIndex = (currentScenarioIndex + 1) % scenarios.length;
+function saveGameState() {
+  const gameState = {
+    health,
+    hydration,
+    sanity,
+    gpa,
+    currentTurn,
+  };
+
+  localStorage.setItem(SAVE_KEY, JSON.stringify(gameState));
+}
+
+function startNewGame() {
+  health = 75;
+  hydration = 75;
+  sanity = 75;
+  gpa = 75;
+  currentTurn = 0;
+}
+
+function initializeGame() {
+  const saved = localStorage.getItem(SAVE_KEY);
+
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      health = clampStat(Number(parsed.health ?? 75));
+      hydration = clampStat(Number(parsed.hydration ?? 75));
+      sanity = clampStat(Number(parsed.sanity ?? 75));
+      gpa = clampStat(Number(parsed.gpa ?? 75));
+      currentTurn = Math.max(0, Number(parsed.currentTurn ?? 0));
+    } catch (error) {
+      console.error("Save file is invalid, starting new game:", error);
+      startNewGame();
+      saveGameState();
+    }
+  } else {
+    startNewGame();
+    saveGameState();
+  }
+
+  renderStats();
+  renderCurrentScenario();
+}
+
+function handleChoice(optionKey) {
+  if (!scenarios.length) return;
+
+  const scenarioIndex = currentTurn % scenarios.length;
+  const scenario = scenarios[scenarioIndex];
+  const selectedOption = optionKey === "A" ? scenario.optionA : scenario.optionB;
+
+  applyScenarioEffects(selectedOption.effects);
+  currentTurn += 1;
+  saveGameState();
+  renderStats();
+  renderCurrentScenario();
 }
 
 // -------------------------------------------------------------
 // 6) Event listeners
 // -------------------------------------------------------------
 optionAButton.addEventListener("click", function () {
-  const scenarioIndexJustShown =
-    (currentScenarioIndex - 1 + scenarios.length) % scenarios.length;
-  const scenario = scenarios[scenarioIndexJustShown];
-  
-  applyScenarioEffects(scenario.optionA.effects);
-  renderStats();
-  loadNextScenario();
+  handleChoice("A");
 });
 
 optionBButton.addEventListener("click", function () {
-  const scenarioIndexJustShown =
-    (currentScenarioIndex - 1 + scenarios.length) % scenarios.length;
-  const scenario = scenarios[scenarioIndexJustShown];
-
-  applyScenarioEffects(scenario.optionB.effects);
-  renderStats();
-  loadNextScenario();
+  handleChoice("B");
 });
 
-// Initial paint
-renderStats();
-loadNextScenario();
+// ============================================================
+// 7) Load scenarios from JSON file
+// ============================================================
+async function loadScenariosFromJSON() {
+  try {
+    const response = await fetch("scenarios.json");
+
+    if (!response.ok) {
+      throw new Error(`Failed to load scenarios: ${response.status}`);
+    }
+
+    scenarios = await response.json();
+    console.log(`✓ Loaded ${scenarios.length} scenarios`);
+  } catch (error) {
+    console.error("Error loading scenarios:", error);
+  }
+}
+
+// Load scenarios and initialize game ONLY after JSON loads
+loadScenariosFromJSON().then(() => {
+  initializeGame();
+});

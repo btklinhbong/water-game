@@ -1,0 +1,68 @@
+[
+  {
+    "title": "1. A Difficult Choice",
+    "description": "You have one bottle of clean water left and exams tomorrow. Do you save the water for later, or drink now to think clearly?",
+    "optionA": {
+      "text": "Drink now",
+      "effects": {
+        "health": 0,
+        "hydration": 10,
+        "sanity": 5,
+        "gpa": 2
+      }
+    },
+    "optionB": {
+      "text": "Save for later",
+      "effects": {
+        "health": -2,
+        "hydration": -8,
+        "sanity": -3,
+        "gpa": 3
+      }
+    }
+  },
+  {
+    "title": "2. Gym vs Group Study",
+    "description": "You can either attend a quick workout session or stay for one more hour of group revision.",
+    "optionA": {
+      "text": "Go to gym",
+      "effects": {
+        "health": 8,
+        "hydration": -6,
+        "sanity": 4,
+        "gpa": -2
+      }
+    },
+    "optionB": {
+      "text": "Stay and study",
+      "effects": {
+        "health": -3,
+        "hydration": -4,
+        "sanity": -2,
+        "gpa": 6
+      }
+    }
+  },
+  {
+    "title": "3. Late-Night Cram",
+    "description": "A friend offers energy drinks for an all-night study session before finals.",
+    "optionA": {
+      "text": "Join cram session",
+      "effects": {
+        "health": -6,
+        "hydration": -10,
+        "sanity": -5,
+        "gpa": 8
+      }
+    },
+    "optionB": {
+      "text": "Sleep early",
+      "effects": {
+        "health": 6,
+        "hydration": 3,
+        "sanity": 7,
+        "gpa": -3
+      }
+    }
+  }
+]

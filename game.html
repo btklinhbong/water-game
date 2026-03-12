@@ -50,10 +50,34 @@
       It does not have special meaning by itself.
       We use it to group content so CSS can style/layout it.
     -->
-    <div id="health-stat" class="stat-item">Health: 75</div>
-    <div id="hydration-stat" class="stat-item">Hydration: 75</div>
-    <div id="sanity-stat" class="stat-item">Sanity: 75</div>
-    <div id="gpa-stat" class="stat-item">GPA: 75</div>
+    <!--
+      Each stat-item now holds a label and a progress bar track.
+      The inner .stat-bar-fill div is what JavaScript will resize via style.width.
+    -->
+    <div class="stat-item">
+      <span class="stat-label">Health</span>
+      <div class="stat-bar-track">
+        <div id="health-bar" class="stat-bar-fill health-bar"></div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Hydration</span>
+      <div class="stat-bar-track">
+        <div id="hydration-bar" class="stat-bar-fill hydration-bar"></div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Sanity</span>
+      <div class="stat-bar-track">
+        <div id="sanity-bar" class="stat-bar-fill sanity-bar"></div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">GPA</span>
+      <div class="stat-bar-track">
+        <div id="gpa-bar" class="stat-bar-fill gpa-bar"></div>
+      </div>
+    </div>
   </div>
 
   <!--
