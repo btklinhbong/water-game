@@ -37,11 +37,24 @@ function clampStat(value) {
   return Math.max(0, Math.min(100, value));
 }// đặt ra giới hạn
 
+function updateBarDangerMode(barElement, value) {
+  if (value < 30) {
+    barElement.classList.add("danger-mode");
+  } else {
+    barElement.classList.remove("danger-mode");
+  }
+}
+
 function renderStats() {
   healthBar.style.width = `${health}%`;
   hydrationBar.style.width = `${hydration}%`;
   sanityBar.style.width = `${sanity}%`;
   gpaBar.style.width = `${gpa}%`;
+
+  updateBarDangerMode(healthBar, health);
+  updateBarDangerMode(hydrationBar, hydration);
+  updateBarDangerMode(sanityBar, sanity);
+  updateBarDangerMode(gpaBar, gpa);
 }
 
 function applyScenarioEffects(effects) {
