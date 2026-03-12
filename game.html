@@ -1,50 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+    The <meta charset="UTF-8"> tag tells the browser what text encoding to use.
+    UTF-8 supports most characters used around the world.
+  -->
   <meta charset="UTF-8">
+
+  <!--
+    This makes the layout scale correctly on phones and tablets.
+    Without this, mobile pages often appear zoomed out.
+  -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Water Challenge: Time Budget</title>
+
+  <!--
+    <title> sets the text shown on the browser tab.
+  -->
+  <title>Water Game</title>
+
+  <!--
+    This links the external CSS file.
+    CSS is where we define colors, spacing, sizes, alignment, etc.
+  -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <img class="brand-logo" src="logo/charity-water-logo-9121D887A9-seeklogo.com.png" alt="charity: water logo">
-    <h1>Water Challenge: Time Budget</h1>
-    <p class="subtitle">Make daily choices and see how water access impacts wellbeing, learning, and health.</p>
-    <div id="bars-area">
-      <div class="hud-item">
-        <span class="hud-icon" aria-hidden="true">F</span>
-        <span class="hud-label">Fun</span>
-        <div class="bar-bg"><div class="bar" id="bar-fun"></div></div>
-        <span class="hud-value" id="val-fun">50%</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-icon" aria-hidden="true">IQ</span>
-        <span class="hud-label">Intelligence</span>
-        <div class="bar-bg"><div class="bar" id="bar-int"></div></div>
-        <span class="hud-value" id="val-int">35%</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-icon" aria-hidden="true">H</span>
-        <span class="hud-label">Health</span>
-        <div class="bar-bg"><div class="bar" id="bar-health"></div></div>
-        <span class="hud-value" id="val-health">50%</span>
-      </div>
-      <div class="hud-item">
-        <span class="hud-icon" aria-hidden="true">D</span>
-        <span class="hud-label">Dehydrate</span>
-        <div class="bar-bg"><div class="bar" id="bar-dehydrate"></div></div>
-        <span class="hud-value" id="val-dehydrate">15%</span>
-      </div>
-    </div>
-    <div id="fact-area"></div>
-    <div class="play-stage">
-      <button id="left-btn" class="nav-btn" aria-label="Choose left option">◀</button>
-      <div id="card-area"></div>
-      <button id="right-btn" class="nav-btn" aria-label="Choose right option">▶</button>
-    </div>
-    <div id="result-area" style="display:none;"></div>
+
+  <!--
+    ===== Quick beginner note: How HTML + CSS work together =====
+
+    HTML gives structure (what things ARE):
+    - headings, paragraphs, buttons, containers
+
+    CSS gives style (how things LOOK):
+    - colors, fonts, spacing, positions, borders
+
+    A "class" (example: class="scenario-card") is a label attached to an HTML element.
+    In CSS, a class is selected with a dot (example: .scenario-card { ... }).
+    That style is then applied to every HTML element that has that class.
+  -->
+
+  <!--
+    This top bar holds the four stats labels:
+    Health, Hydration, Sanity, GPA.
+  -->
+  <div class="stats-bar">
+    <!--
+      <div> is a generic container block.
+      It does not have special meaning by itself.
+      We use it to group content so CSS can style/layout it.
+    -->
+    <div id="health-stat" class="stat-item">Health: 75</div>
+    <div id="hydration-stat" class="stat-item">Hydration: 75</div>
+    <div id="sanity-stat" class="stat-item">Sanity: 75</div>
+    <div id="gpa-stat" class="stat-item">GPA: 75</div>
   </div>
-  <script src="interact.js"></script>
+
+  <!--
+    Main play area. We center the card and buttons here.
+  -->
+  <main class="game-area">
+
+    <!--
+      Scenario card container.
+      This is the central card requested.
+    -->
+    <div class="scenario-card">
+
+      <!--
+        <h1> is a top-level heading.
+        It usually represents the most important heading in a section/page.
+        Browsers and screen readers treat headings as important structure.
+      -->
+      <h1 class="scenario-title">A Difficult Choice</h1>
+
+      <!--
+        <p> is a paragraph tag used for normal text content.
+      -->
+      <p class="scenario-text">
+        You have one bottle of clean water left and exams tomorrow.
+        Do you save the water for later, or drink now to think clearly?
+      </p>
+    </div>
+
+    <!--
+      Button row directly below the card.
+    -->
+    <div class="options-row">
+
+      <!--
+        <button> creates a clickable button.
+        Right now, these are only visual (no JavaScript yet).
+        Later, JavaScript can detect clicks and update stats/game state.
+      -->
+      <button id="option-a-button" class="option-button">Option A</button>
+      <button id="option-b-button" class="option-button">Option B</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

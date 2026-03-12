@@ -1,373 +1,192 @@
-:root {
-  --cw-yellow: #ffc907;
-  --cw-red: #d12229;
-  --cw-teal: #77a8bb;
-  --cw-cyan: #009bd1;
-  --cw-ink: #1c2b3f;
-  --cw-muted: #4f5f6b;
-  --cw-bg: #fff7e0;
-  --cw-surface: #ffffff;
-}
+/*
+  =============================================================
+  BASIC RESET + PAGE FOUNDATION
+  =============================================================
 
+  The selector "*" means "all elements".
+  We set box-sizing so width/height calculations are easier and more predictable.
+*/
 * {
   box-sizing: border-box;
 }
 
+/*
+  The body is the main page container.
+  We remove default browser margin so we can control spacing ourselves.
+*/
 body {
   margin: 0;
-  background: var(--cw-bg);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /*
+    A simple system font stack for good readability.
+    The browser will use the first available font.
+  */
+  font-family: Arial, Helvetica, sans-serif;
+
+  /*
+    Soft background + dark text for contrast.
+  */
+  background-color: #f4f7fb;
+  color: #1f2937;
+
+  /*
+    100vh means "100% of viewport height".
+    This helps vertical centering in our main game area.
+  */
   min-height: 100vh;
+}
+
+/*
+  =============================================================
+  TOP STATS BAR
+  =============================================================
+
+  .stats-bar applies to <div class="stats-bar"> in HTML.
+  This shows how classes connect HTML to CSS:
+  - HTML class="stats-bar"
+  - CSS selector .stats-bar { ... }
+*/
+.stats-bar {
   display: flex;
-  justify-content: center;
+
+  /*
+    "justify-content: space-around" spreads items across the row.
+  */
+  justify-content: space-around;
+
+  /*
+    "align-items: center" vertically centers items inside this bar.
+  */
   align-items: center;
-  padding: 16px;
+
+  padding: 16px 12px;
+  background-color: #0f172a;
+  color: #ffffff;
+  border-bottom: 3px solid #1e293b;
 }
 
-.container {
-  width: min(96vw, 1100px);
-  margin: 0;
-  text-align: center;
-  color: var(--cw-ink);
-  background: var(--cw-surface);
-  border-radius: 14px;
-  border: 1px solid #dce3ea;
-  padding: 18px 22px 24px;
-  box-shadow: 0 10px 30px rgba(28, 43, 63, 0.08);
-}
-
-.brand-logo {
-  width: clamp(120px, 20vw, 190px);
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 2px;
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(1.2rem, 2.1vw, 1.75rem);
+/*
+  Each individual stat label (Health, Hydration, etc.).
+*/
+.stat-item {
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.3px;
 }
 
-.subtitle {
-  margin: 8px auto 14px;
-  max-width: 720px;
-  color: var(--cw-muted);
-  font-size: clamp(0.88rem, 1.45vw, 0.98rem);
-}
-
-#bars-area {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.hud-item {
+/*
+  =============================================================
+  MAIN GAME AREA
+  =============================================================
+*/
+.game-area {
+  /*
+    Flexbox makes it easy to center and stack elements.
+  */
   display: flex;
+
+  /*
+    "column" stacks children vertically (card, then button row).
+  */
+  flex-direction: column;
+
+  /*
+    Horizontal centering.
+  */
   align-items: center;
-  gap: 7px;
-  background: #f7f9fc;
-  border: 1px solid #e4e9f0;
-  border-radius: 10px;
-  padding: 7px 8px;
+
+  /*
+    Push content slightly down from the top bar.
+  */
+  margin-top: 80px;
+
+  /*
+    Space between the scenario card and buttons.
+  */
+  gap: 18px;
+
+  padding: 0 16px;
 }
 
-.hud-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #dbe3eb;
+/*
+  =============================================================
+  SCENARIO CARD
+  =============================================================
+*/
+.scenario-card {
+  width: 100%;
+
+  /*
+    max-width prevents the card from getting too wide on large screens.
+  */
+  max-width: 640px;
+
+  background-color: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  padding: 24px;
   text-align: center;
-  font-size: 0.73rem;
-  line-height: 22px;
-  font-weight: 700;
-  color: var(--cw-muted);
 }
 
-.hud-label {
-  display: none;
-  color: var(--cw-muted);
-  font-size: 0.85rem;
-  white-space: nowrap;
+/*
+  Styles the <h1 class="scenario-title">.
+*/
+.scenario-title {
+  margin: 0 0 12px;
+  font-size: 2rem;
 }
 
-.bar-bg {
-  flex: 1;
-  height: 14px;
-  background: #e8e8e8;
-  border-radius: 8px;
-  min-width: 64px;
-}
-
-.bar {
-  height: 14px;
-  border-radius: 8px;
-  width: 0%;
-  transition: width 0.4s;
-}
-
-.hud-value {
-  min-width: 38px;
-  text-align: right;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #5c6b79;
-}
-
-#bar-fun { background: var(--cw-yellow);}
-#bar-int { background: var(--cw-teal);}
-#bar-health { background: var(--cw-red);}
-#bar-dehydrate { background: var(--cw-cyan);}
-
-#fact-area {
-  color: var(--cw-muted);
-  min-height: 24px;
-  margin: 10px 0 14px;
-  font-size: 0.95rem;
-}
-
-.play-stage {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 64px;
-}
-
-#card-area {
-  width: min(100%, 640px);
-}
-
-.card {
-  background: #ffffff;
-  border: 1px solid #dce3ea;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(28, 43, 63, 0.08);
-  padding: 16px;
-  margin: 0 auto;
-  min-height: 220px;
-  text-align: left;
-}
-
-.story-art {
-  height: 96px;
-  border: 1px solid #dce3ea;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, #f7fbff 0%, #f2f7fc 100%);
-  margin-bottom: 10px;
-}
-
-.story-art-badge {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid #dce3ea;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: #5b6977;
-}
-
-.story-text {
-  margin: 0 0 10px;
-  font-size: 1.02rem;
-  line-height: 1.45;
-  font-weight: 600;
-}
-
-.choice-list {
+/*
+  Styles the paragraph text inside the card.
+*/
+.scenario-text {
   margin: 0;
-  padding-left: 18px;
-  color: var(--cw-muted);
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
-.choice-list li {
-  margin-bottom: 6px;
+/*
+  =============================================================
+  OPTIONS (BUTTONS)
+  =============================================================
+*/
+.options-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 640px;
+
+  /*
+    Allow wrapping on small screens so buttons don't overflow.
+  */
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
-.nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid #ccd6e2;
-  background: #fff;
-  color: var(--cw-ink);
-  font-size: 1.1rem;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(28, 43, 63, 0.12);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-}
-
-.nav-btn:hover {
-  transform: translateY(-50%) translateX(0);
-  background: #f7faff;
-  box-shadow: 0 8px 18px rgba(28, 43, 63, 0.18);
-}
-
-.nav-btn:focus-visible,
-.result-btn:focus-visible {
-  outline: 2px solid #77a8bb;
-  outline-offset: 2px;
-}
-
-#left-btn {
-  left: 6px;
-}
-
-#right-btn {
-  right: 6px;
-}
-
-#result-area {
-  margin-top: 14px;
-  padding: 0;
-  background: transparent;
-  border-radius: 10px;
-  overflow-wrap: anywhere;
-}
-
-.result-panel {
-  width: min(100%, 640px);
-  margin: 0 auto;
-  padding: 14px;
-  border: 1px solid #dce3ea;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 8px 20px rgba(28, 43, 63, 0.08);
-}
-
-.result-panel h2 {
-  margin: 2px 0 10px;
-}
-
-.result-content {
-  border: 1px solid #e5ebf2;
+/*
+  This class styles BOTH buttons because both have class="option-button".
+*/
+.option-button {
+  border: none;
   border-radius: 8px;
-  padding: 12px 13px;
-  text-align: left;
-  margin-bottom: 12px;
-  background: #fafcff;
-}
-
-.result-content a {
-  color: #0f7fba;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.result-content a:hover {
-  text-decoration: underline;
-}
-
-.result-btn {
-  border: 1px solid #ccd6e2;
-  border-radius: 8px;
-  background: #ffffff;
-  color: var(--cw-ink);
-  padding: 8px 14px;
-  font-weight: 600;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  background-color: #2563eb;
+  color: #ffffff;
+  min-width: 140px;
 }
 
-.result-btn:hover {
-  background: #f5f9ff;
+/*
+  :hover applies when mouse is over the button.
+*/
+.option-button:hover {
+  background-color: #1d4ed8;
 }
 
-@media (max-width: 700px) {
-  body {
-    align-items: flex-start;
-    padding: 12px 0;
-  }
-
-  .container {
-    width: 94vw;
-    margin: 14px auto;
-    padding: 12px 10px 16px;
-  }
-
-  .subtitle {
-    margin: 8px 8px 12px;
-  }
-
-  #bars-area {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .hud-label {
-    display: inline;
-    width: 90px;
-    text-align: left;
-  }
-
-  .hud-value {
-    min-width: 34px;
-    font-size: 0.75rem;
-  }
-
-  .play-stage {
-    padding: 0 2px;
-  }
-
-  .nav-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
-    z-index: 2;
-  }
-
-  #left-btn {
-    left: -2px;
-  }
-
-  #right-btn {
-    right: -2px;
-  }
-
-  .card {
-    min-height: 290px;
-    padding: 12px;
-  }
-
-  .story-art {
-    height: 70px;
-  }
-
-  .story-text,
-  .choice-list {
-    font-size: 0.94rem;
-  }
-
-  .result-panel {
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .result-content {
-    min-height: 280px;
-    font-size: 0.94rem;
-  }
-}
-
-@media (min-width: 1000px) {
-  .card {
-    min-height: 250px;
+@media (max-width: 560px) {
+  .options-row {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
