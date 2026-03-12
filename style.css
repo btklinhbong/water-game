@@ -237,9 +237,89 @@ body {
   background-color: #1d4ed8;
 }
 
-@media (max-width: 560px) {
+.end-game-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.82);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.end-game-content {
+  width: 100%;
+  max-width: 640px;
+  background-color: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.end-game-content h2 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+}
+
+.end-game-content p {
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+/* Base (desktop/tablet large) stays as your current styles */
+
+/* Mobile + small tablets */
+@media (max-width: 768px) {
+  .stats-bar {
+    flex-wrap: wrap;          /* allow next line */
+    justify-content: center;  /* cleaner centering */
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .stat-item {
+    flex: 0 1 calc(50% - 10px); /* 2 columns */
+    min-width: 140px;           /* prevent tiny bars/text */
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .game-area {
+    margin-top: 32px;
+  }
+
   .options-row {
     flex-wrap: wrap;
-    justify-content: center;
+  }
+
+  .option-button {
+    flex: 1 1 calc(50% - 12px);
+  }
+}
+
+/* Very small phones: stack stats and buttons in one column */
+@media (max-width: 480px) {
+  .stat-item {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .option-button {
+    flex: 1 1 100%;
+  }
+
+  .scenario-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Optional: very small phones */
+@media (max-width: 480px) {
+  .stat-item {
+    flex: 1 1 100%;  /* single column stack */
   }
 }

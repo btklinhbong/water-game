@@ -25,6 +25,10 @@ const scenarioTitleElement = document.querySelector(".scenario-title");
 const scenarioTextElement = document.querySelector(".scenario-text");
 const optionAButton = document.getElementById("option-a-button");
 const optionBButton = document.getElementById("option-b-button");
+const endGameModal = document.getElementById("end-game-modal");
+const endGameTitle = document.getElementById("end-game-title");
+const endGameDescription = document.getElementById("end-game-description");
+const playAgainButton = document.getElementById("play-again-button");
 
 // -------------------------------------------------------------
 // 4) Rendering helpers
@@ -47,13 +51,26 @@ function applyScenarioEffects(effects) {
   gpa = clampStat(gpa + (effects.gpa ?? 0));
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
 // -------------------------------------------------------------
 // 5) Scenario progression + save/load helpers
 // -------------------------------------------------------------
 function renderCurrentScenario() {
   if (!scenarios.length) return;
 
-  const scenarioIndex = currentTurn % scenarios.length;
+  if (currentTurn >= scenarios.length) {
+    return;
+  }
+
+  const scenarioIndex = currentTurn;
   const scenario = scenarios[scenarioIndex];
 
   scenarioTitleElement.textContent = scenario.title;
@@ -110,15 +127,76 @@ function initializeGame() {
 function handleChoice(optionKey) {
   if (!scenarios.length) return;
 
-  const scenarioIndex = currentTurn % scenarios.length;
+  if (checkGameEnd()) return;
+
+  if (currentTurn >= scenarios.length) return;
+
+  const scenarioIndex = currentTurn;
   const scenario = scenarios[scenarioIndex];
-  const selectedOption = optionKey === "A" ? scenario.optionA : scenario.optionB;
+  const selectedOption = optionKey === "A" ? scenario.optionA : scenario.optionB;// chọn option nào
 
   applyScenarioEffects(selectedOption.effects);
   currentTurn += 1;
   saveGameState();
   renderStats();
+
+  if (checkGameEnd()) {
+    return;
+  }
+
   renderCurrentScenario();
+}
+
+function showEndGameModal(title, description) {
+  endGameTitle.textContent = title;
+  endGameDescription.textContent = description;
+  endGameModal.style.display = "flex";
+  optionAButton.disabled = true;
+  optionBButton.disabled = true;
+}
+
+function checkGameEnd() {
+  if (health <= 0) {
+    showEndGameModal(
+      "Health Depleted",
+      "Your body gave out from prolonged physical strain and unsafe conditions. In the real world, inadequate access to clean water can quickly become a life-threatening health crisis."
+    );
+    return true;
+  }
+
+  if (hydration <= 0) {
+    showEndGameModal(
+      "Severe Dehydration",
+      "You collapsed from severe dehydration. In the real world, lack of clean water is a daily physical threat."
+    );
+    return true;
+  }
+
+  if (sanity <= 0) {
+    showEndGameModal(
+      "Mental Breakdown",
+      "Constant stress and uncertainty overwhelmed you. Water insecurity can affect mental well-being as deeply as physical health."
+    );
+    return true;
+  }
+
+  if (gpa <= 0) {
+    showEndGameModal(
+      "Academic Collapse",
+      "You failed your classes. The time spent finding water cost you your education, a reality for millions globally."
+    );
+    return true;
+  }
+
+  if (currentTurn >= scenarios.length) {
+    showEndGameModal(
+      "You Survived",
+      "You completed every scenario with your Health, Hydration, Sanity, and GPA still above zero. You adapted, endured, and made it through."
+    );
+    return true;
+  }
+
+  return false;
 }
 
 // -------------------------------------------------------------
@@ -130,6 +208,11 @@ optionAButton.addEventListener("click", function () {
 
 optionBButton.addEventListener("click", function () {
   handleChoice("B");
+});
+
+playAgainButton.addEventListener("click", function () {
+  localStorage.removeItem(SAVE_KEY);
+  location.reload();
 });
 
 // ============================================================
@@ -144,6 +227,7 @@ async function loadScenariosFromJSON() {
     }
 
     scenarios = await response.json();
+    shuffleArray(scenarios);
     console.log(`✓ Loaded ${scenarios.length} scenarios`);
   } catch (error) {
     console.error("Error loading scenarios:", error);
@@ -153,4 +237,5 @@ async function loadScenariosFromJSON() {
 // Load scenarios and initialize game ONLY after JSON loads
 loadScenariosFromJSON().then(() => {
   initializeGame();
+  checkGameEnd();
 });

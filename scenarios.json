@@ -64,5 +64,227 @@
         "gpa": -3
       }
     }
+  },
+  {
+    "title": "4. The Bottled Water Black Market",
+    "description": "The campus convenience store is sold out of water. A student is selling a single bottle for $20 outside the library.",
+    "optionA": {
+      "text": "Pay the outrageous price",
+      "effects": {
+        "health": 0,
+        "hydration": 15,
+        "sanity": -12,
+        "gpa": 5
+      }
+    },
+    "optionB": {
+      "text": "Walk 3 miles to a grocery store",
+      "effects": {
+        "health": -5,
+        "hydration": 5,
+        "sanity": -4,
+        "gpa": -15
+      }
+    }
+  },
+  {
+    "title": "5. The Desperate Lab Rat",
+    "description": "You've been stuck in the biology lab for 5 hours. You are incredibly thirsty, but only the unboiled sink water is available.",
+    "optionA": {
+      "text": "Risk drinking the sink water",
+      "effects": {
+        "health": -18,
+        "hydration": 12,
+        "sanity": -2,
+        "gpa": 8
+      }
+    },
+    "optionB": {
+      "text": "Power through the thirst",
+      "effects": {
+        "health": -4,
+        "hydration": -15,
+        "sanity": -10,
+        "gpa": -6
+      }
+    }
+  },
+  {
+    "title": "6. Shower vs. Drink",
+    "description": "You spent 45 minutes boiling and cooling a single large pot of water. You smell terrible, but you are also parched.",
+    "optionA": {
+      "text": "Take a quick sponge bath",
+      "effects": {
+        "health": 5,
+        "hydration": -8,
+        "sanity": 15,
+        "gpa": 0
+      }
+    },
+    "optionB": {
+      "text": "Drink the whole pot",
+      "effects": {
+        "health": 0,
+        "hydration": 18,
+        "sanity": -6,
+        "gpa": 0
+      }
+    }
+  },
+  {
+    "title": "7. The Charity Drive",
+    "description": "A student group is raising money for clean water initiatives. You want to help, but you have a massive essay due in two hours.",
+    "optionA": {
+      "text": "Stop and volunteer to help",
+      "effects": {
+        "health": 0,
+        "hydration": -4,
+        "sanity": 12,
+        "gpa": -14
+      }
+    },
+    "optionB": {
+      "text": "Ignore them and go write",
+      "effects": {
+        "health": -2,
+        "hydration": -2,
+        "sanity": -8,
+        "gpa": 12
+      }
+    }
+  },
+  {
+    "title": "8. The Tainted Salad",
+    "description": "The dining hall accidentally washed the lettuce with unboiled tap water. Your stomach is in absolutely agonizing pain.",
+    "optionA": {
+      "text": "Sleep it off in the dorm",
+      "effects": {
+        "health": 12,
+        "hydration": -6,
+        "sanity": -5,
+        "gpa": -18
+      }
+    },
+    "optionB": {
+      "text": "Chug medicine and take your test",
+      "effects": {
+        "health": -15,
+        "hydration": -12,
+        "sanity": -8,
+        "gpa": 15
+      }
+    }
+  },
+  {
+    "title": "9. The Taped-Off Fountain",
+    "description": "You are hallucinating from thirst during a 3-hour lecture. The water fountain in the hall is taped off with a 'DO NOT DRINK' sign.",
+    "optionA": {
+      "text": "Tear off the tape and drink heavily",
+      "effects": {
+        "health": -25,
+        "hydration": 25,
+        "sanity": -5,
+        "gpa": 0
+      }
+    },
+    "optionB": {
+      "text": "Suffer through the lecture",
+      "effects": {
+        "health": -5,
+        "hydration": -20,
+        "sanity": -15,
+        "gpa": 10
+      }
+    }
+  },
+  {
+    "title": "10. The Flaking Partner",
+    "description": "Your group project partner hasn't showered in days, feels sick from dirty water, and completely bails on your final presentation.",
+    "optionA": {
+      "text": "Do their part too (All-nighter)",
+      "effects": {
+        "health": -10,
+        "hydration": -10,
+        "sanity": -25,
+        "gpa": 20
+      }
+    },
+    "optionB": {
+      "text": "Let the project fail",
+      "effects": {
+        "health": 5,
+        "hydration": -5,
+        "sanity": 10,
+        "gpa": -30
+      }
+    }
+  },
+  {
+    "title": "11. The Roommate Betrayal",
+    "description": "You wake up to find your roommate drinking the last of your carefully boiled, safe water.",
+    "optionA": {
+      "text": "Start a screaming match",
+      "effects": {
+        "health": 0,
+        "hydration": -10,
+        "sanity": -30,
+        "gpa": -5
+      }
+    },
+    "optionB": {
+      "text": "Let it go, you don't have the energy",
+      "effects": {
+        "health": -5,
+        "hydration": -15,
+        "sanity": 5,
+        "gpa": 0
+      }
+    }
+  },
+  {
+    "title": "12. The Campus Blackout",
+    "description": "A storm knocks out the power. You can't use your electric stove to boil water, and you can't see your textbooks.",
+    "optionA": {
+      "text": "Hike in the rain to a different dorm",
+      "effects": {
+        "health": -15,
+        "hydration": -10,
+        "sanity": -15,
+        "gpa": 10
+      }
+    },
+    "optionB": {
+      "text": "Give up and go to sleep",
+      "effects": {
+        "health": 10,
+        "hydration": -10,
+        "sanity": 15,
+        "gpa": -20
+      }
+    }
+  },
+  {
+    "title": "13. The Rainwater Collection",
+    "description": "It's pouring rain. You are incredibly thirsty and the campus water truck is delayed by 6 hours.",
+    "optionA": {
+      "text": "Put buckets out and drink the rain",
+      "effects": {
+        "health": -20,
+        "hydration": 20,
+        "sanity": 0,
+        "gpa": 0
+      }
+    },
+    "optionB": {
+      "text": "Wait for the official water truck",
+      "effects": {
+        "health": -10,
+        "hydration": -25,
+        "sanity": -15,
+        "gpa": -10
+      }
+    }
   }
+
+  
 ]
