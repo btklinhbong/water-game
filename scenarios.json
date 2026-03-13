@@ -1,6 +1,6 @@
 [
   {
-    "title": "1. A Difficult Choice",
+    "title": "A Difficult Choice",
     "description": "You have one bottle of clean water left and exams tomorrow. Do you save the water for later, or drink now to think clearly?",
     "optionA": {
       "text": "Drink now",
@@ -22,7 +22,7 @@
     }
   },
   {
-    "title": "2. Gym vs Group Study",
+    "title": "Gym vs Group Study",
     "description": "You can either attend a quick workout session or stay for one more hour of group revision.",
     "optionA": {
       "text": "Go to gym",
@@ -44,7 +44,7 @@
     }
   },
   {
-    "title": "3. Late-Night Cram",
+    "title": "Late-Night Cram",
     "description": "A friend offers energy drinks for an all-night study session before finals.",
     "optionA": {
       "text": "Join cram session",
@@ -66,7 +66,7 @@
     }
   },
   {
-    "title": "4. The Bottled Water Black Market",
+    "title": "The Bottled Water Black Market",
     "description": "The campus convenience store is sold out of water. A student is selling a single bottle for $20 outside the library.",
     "optionA": {
       "text": "Pay the outrageous price",
@@ -88,7 +88,7 @@
     }
   },
   {
-    "title": "5. The Desperate Lab Rat",
+    "title": "The Desperate Lab Rat",
     "description": "You've been stuck in the biology lab for 5 hours. You are incredibly thirsty, but only the unboiled sink water is available.",
     "optionA": {
       "text": "Risk drinking the sink water",
@@ -110,7 +110,7 @@
     }
   },
   {
-    "title": "6. Shower vs. Drink",
+    "title": "Shower vs. Drink",
     "description": "You spent 45 minutes boiling and cooling a single large pot of water. You smell terrible, but you are also parched.",
     "optionA": {
       "text": "Take a quick sponge bath",
@@ -132,7 +132,7 @@
     }
   },
   {
-    "title": "7. The Charity Drive",
+    "title": "The Charity Drive",
     "description": "A student group is raising money for clean water initiatives. You want to help, but you have a massive essay due in two hours.",
     "optionA": {
       "text": "Stop and volunteer to help",
@@ -154,7 +154,7 @@
     }
   },
   {
-    "title": "8. The Tainted Salad",
+    "title": "The Tainted Salad",
     "description": "The dining hall accidentally washed the lettuce with unboiled tap water. Your stomach is in absolutely agonizing pain.",
     "optionA": {
       "text": "Sleep it off in the dorm",
@@ -176,7 +176,7 @@
     }
   },
   {
-    "title": "9. The Taped-Off Fountain",
+    "title": "The Taped-Off Fountain",
     "description": "You are hallucinating from thirst during a 3-hour lecture. The water fountain in the hall is taped off with a 'DO NOT DRINK' sign.",
     "optionA": {
       "text": "Tear off the tape and drink heavily",
@@ -198,7 +198,7 @@
     }
   },
   {
-    "title": "10. The Flaking Partner",
+    "title": "The Flaking Partner",
     "description": "Your group project partner hasn't showered in days, feels sick from dirty water, and completely bails on your final presentation.",
     "optionA": {
       "text": "Do their part too (All-nighter)",
@@ -220,7 +220,7 @@
     }
   },
   {
-    "title": "11. The Roommate Betrayal",
+    "title": "The Roommate Betrayal",
     "description": "You wake up to find your roommate drinking the last of your carefully boiled, safe water.",
     "optionA": {
       "text": "Start a screaming match",
@@ -242,7 +242,7 @@
     }
   },
   {
-    "title": "12. The Campus Blackout",
+    "title": "The Campus Blackout",
     "description": "A storm knocks out the power. You can't use your electric stove to boil water, and you can't see your textbooks.",
     "optionA": {
       "text": "Hike in the rain to a different dorm",
@@ -264,7 +264,7 @@
     }
   },
   {
-    "title": "13. The Rainwater Collection",
+    "title": "The Rainwater Collection",
     "description": "It's pouring rain. You are incredibly thirsty and the campus water truck is delayed by 6 hours.",
     "optionA": {
       "text": "Put buckets out and drink the rain",
