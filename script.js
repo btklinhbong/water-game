@@ -240,9 +240,22 @@ function showEndGameModal(title, description) {
   }, 2000);  // 2000 milliseconds = 2 seconds
 }
 
+function endGame(result, title, description) {
+  if (result === "win" && typeof confetti === "function") {
+    confetti({
+      particleCount: 160,
+      spread: 80,
+      origin: { y: 0.6 },
+    });
+  }
+
+  showEndGameModal(title, description);
+}
+
 function checkGameEnd() {
   if (health <= 0) {
-    showEndGameModal(
+    endGame(
+      "lose",
       "Health Depleted",
       "Your body gave out from prolonged physical strain and unsafe conditions. In the real world, inadequate access to clean water can quickly become a life-threatening health crisis."
     );
@@ -250,7 +263,8 @@ function checkGameEnd() {
   }
 
   if (hydration <= 0) {
-    showEndGameModal(
+    endGame(
+      "lose",
       "Severe Dehydration",
       "You collapsed from severe dehydration. In the real world, lack of clean water is a daily physical threat."
     );
@@ -258,7 +272,8 @@ function checkGameEnd() {
   }
 
   if (sanity <= 0) {
-    showEndGameModal(
+    endGame(
+      "lose",
       "Mental Breakdown",
       "Constant stress and uncertainty overwhelmed you. Water insecurity can affect mental well-being as deeply as physical health."
     );
@@ -266,7 +281,8 @@ function checkGameEnd() {
   }
 
   if (gpa <= 0) {
-    showEndGameModal(
+    endGame(
+      "lose",
       "Academic Collapse",
       "You failed your classes. The time spent finding water cost you your education, a reality for millions globally."
     );
@@ -274,7 +290,8 @@ function checkGameEnd() {
   }
 
   if (currentTurn >= scenarios.length) {
-    showEndGameModal(
+    endGame(
+      "win",
       "You Survived",
       "You completed every scenario with your Health, Hydration, Sanity, and GPA still above zero. You adapted, endured, and made it through."
     );
